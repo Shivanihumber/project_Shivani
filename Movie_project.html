@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+            <title>Welcome to Movies Page</title>
+            <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+<body>
+    <header> <h1> List of Movies </h1> </header>
+    <div>
+        <form id="frmSrch" action="javascript:search();" >
+            <input type="text" name="search1" id="search1" placeholder="Global Search..." />
+            <input class="btn" type="submit" value="Search" />
+        </form>
+        <form id="frmClr" action="javascript:clrSearch();" >
+            <input class="btn" type="submit" value="Clear Search" />
+        </form>
+        <p id="movieTable"></p>        
+
+    </div>
+
+    <script>
+
+        var xhttp = new XMLHttpRequest();
+        var Movies;
+
+        xhttp.open("GET", "movies.xml", true);
+        xhttp.send();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                myFunction(this);
+            }
+        };
+
+
+        function myFunction() {
+            Movies = xhttp.responseXML;
+            fillTable(-1);
+        };
+
+
+        function showResult(xml) {
+    var txt = "";
+    //path = "/catalog/cd/title[text()]";
+    path = "/Movies/Movie/price";
+    //path = "/catalog/cd[contains(.,'Empire')]/*";
+    
+        var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
+        var result = nodes.iterateNext();
+        while (result) {
+            txt += result.childNodes[0].nodeValue + "<br>";
+            result = nodes.iterateNext();
+        } 
+   
+    document.getElementById("movieTable").innerHTML = txt;
+} 
+
+
+        function fillTable(index){
+            var x1, x2, x3, x4, x5, txt, p;
+            txt = "<table table id='myTable' border='1'><tr><th>Title</th><th>Description</th><th>Country</th><th>Type</th><th>Price</th><th>Year</th></tr>"; 
+
+            if (document.getElementById("search1").value != ""){
+                path = "/Movies/Movie[contains(.,'" + document.getElementById("search1").value + "')]/*";
+                var nodes = Movies.evaluate(path, Movies, null, XPathResult.ANY_TYPE, null);
+                var result = nodes.iterateNext();
+                var tmpind=0;
+                while (result) {
+                    tmpind += 1;
+                    switch(tmpind){
+                        case 1:
+                            txt += "<tr><td>" + result.childNodes[0].nodeValue + "</td>";
+                            break;
+                        case 2:
+                            txt +=     "<td>" + result.childNodes[0].nodeValue + "</td>";
+                            break;
+                        case 3:
+                            txt +=     "<td>" + result.childNodes[0].nodeValue + "</td>";
+                            break;
+                        case 4:
+                            txt +=     "<td>" + result.childNodes[0].nodeValue + "</td>";
+                            break;
+                        case 5:
+                            txt +=     "<td>" + result.childNodes[0].nodeValue + "</td>";
+                            break;
+                        case 6:
+                            txt +=     "<td>" + result.childNodes[0].nodeValue + "</td></tr>";
+                            tmpind = 0;
+                            break;                            
+                    }
+                    result = nodes.iterateNext();
+                } 
+                document.getElementById("search1").value = "";
+            }else{
+                x1 =Movies.getElementsByTagName("title");
+                x2 =Movies.getElementsByTagName("description");
+                x3 =Movies.getElementsByTagName("country");
+                x4 =Movies.getElementsByTagName("type");
+                x5 =Movies.getElementsByTagName("price");
+                x6 =Movies.getElementsByTagName("year");
+
+                for(i = 0; i < x1.length; i++){
+                    if (i == index){
+                        txt += "<tr><td>" + "<input id='uTitl' value='" + x1[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +=     "<td>" + "<input id='uDesc' value='" + x2[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +=     "<td>" + "<input id='uCoun' value='" + x3[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +=     "<td>" + "<input id='uType' value='" + x4[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +=     "<td>" + "<input id='uPric' value='" + x5[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +=     "<td>" + "<input id='uYear' value='" + x6[i].childNodes[0].nodeValue + "'>" + "</td>";
+                        txt +="<td><form name='f4' action='javascript:myUpdate("+i+");'' ><input class='btn' type='submit' name='update' value='Update' /></form></td>"
+                        txt += "</tr>";
+                    }
+                    else{
+
+                        txt += "<tr><td>" + x1[i].childNodes[0].nodeValue + "</td>";
+                        txt +=     "<td>" + x2[i].childNodes[0].nodeValue + "</td>";
+                        txt +=     "<td>" + x3[i].childNodes[0].nodeValue + "</td>";
+                        txt +=     "<td>" + x4[i].childNodes[0].nodeValue + "</td>";
+                        txt +=     "<td>" + x5[i].childNodes[0].nodeValue + "</td>";
+                        txt +=     "<td>" + x6[i].childNodes[0].nodeValue + "</td>";
+
+                        txt += "<td><form name='f1' action='javascript:myEdit("+i+");'' ><input class='btn' type='submit' name='edit' value='Edit' /></form>"
+                        txt += "<form name='f2' action='javascript:myDelete("+i+");'' ><input class='btn' type='submit' name='delete' value='Delete' /></form></td>"
+
+                    }
+                    txt += "</tr>";
+                }    
+
+                if (index == -1) {
+                    txt += "<tr><td>" + "<input id='vTitl'>" + "</td>";
+                    txt +=     "<td>" + "<input id='vDesc'>" + "</td>";
+                    txt +=     "<td>" + "<input id='vCoun'>" + "</td>";
+                    txt +=     "<td>" + "<input id='vType'>" + "</td>";
+                    txt +=     "<td>" + "<input id='vPric'>" + "</td>";
+                    txt +=     "<td>" + "<input id='vYear'>" + "</td>";
+                    txt += "<td><form name='f3' action='javascript:myAdd();'' ><input class='btn' type='submit' name='add' value='Add' /></form></td>"
+                    txt += "</tr>";
+                }
+                txt += "</table>"
+            }
+            document.getElementById("movieTable").innerHTML = txt;
+        };
+
+        function myEdit(i){
+            document.getElementById("search1").value = "";
+            fillTable(i);
+        }
+
+        function myDelete(i){
+            x = Movies.getElementsByTagName("Movie")[i];
+            x.parentNode.removeChild(x);
+
+            document.getElementById("search1").value = "";
+            fillTable(-1);
+        }
+
+
+        function myAdd(i){
+            x = Movies.getElementsByTagName("Movies");
+          
+            newEle = Movies.createElement("Movie");
+            
+            newEle1 = Movies.createElement("title");
+            newText1 = Movies.createTextNode(document.getElementById("vTitl").value);
+            newEle1.appendChild(newText1);
+            
+            newEle2 = Movies.createElement("description");
+            newText2 = Movies.createTextNode(document.getElementById("vDesc").value);
+            newEle2.appendChild(newText2);
+            
+            newEle3= Movies.createElement("country");
+            newText3 = Movies.createTextNode(document.getElementById("vCoun").value);
+            newEle3.appendChild(newText3);
+            
+            newEle4 = Movies.createElement("type");
+            newText4 = Movies.createTextNode(document.getElementById("vType").value);
+            newEle4.appendChild(newText4);
+            
+            newEle5 = Movies.createElement("price");
+            newText5 = Movies.createTextNode(document.getElementById("vPric").value);
+            newEle5.appendChild(newText5);
+
+            newEle6 = Movies.createElement("year");
+            newText6 = Movies.createTextNode(document.getElementById("vYear").value);
+            newEle6.appendChild(newText6);
+
+            newEle.appendChild(newEle1);
+            newEle.appendChild(newEle2);
+            newEle.appendChild(newEle3);
+            newEle.appendChild(newEle4);
+            newEle.appendChild(newEle5);
+            newEle.appendChild(newEle6);
+
+            x[0].appendChild(newEle);
+
+            document.getElementById("search1").value = "";
+            fillTable(-1);
+        }
+
+        function myUpdate(ind){
+            Movies.getElementsByTagName("title")[ind].childNodes[0].nodeValue       = document.getElementById("uTitl").value;
+            Movies.getElementsByTagName("description")[ind].childNodes[0].nodeValue = document.getElementById("uDesc").value;
+            Movies.getElementsByTagName("country")[ind].childNodes[0].nodeValue     = document.getElementById("uCoun").value;
+            Movies.getElementsByTagName("type")[ind].childNodes[0].nodeValue        = document.getElementById("uType").value;
+            Movies.getElementsByTagName("price")[ind].childNodes[0].nodeValue       = document.getElementById("uPric").value;
+            Movies.getElementsByTagName("year")[ind].childNodes[0].nodeValue        = document.getElementById("uYear").value;
+
+            document.getElementById("search1").value = "";
+            fillTable(-1);
+        }
+
+        function search(){
+            if (document.getElementById("search1").value == "")
+                alert("Please enter a text to be searched...");
+            else
+                fillTable(-1);
+        }
+        function clrSearch(){
+            document.getElementById("search1").value = "";
+            fillTable(-1);
+        }
+
+    </script>
+
+</body>
+</html>

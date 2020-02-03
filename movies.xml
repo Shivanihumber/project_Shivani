@@ -1,0 +1,97 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<Movies>
+  <Movie>
+      <title>Star Wars V</title>
+      <description>The Empire Strikes Back </description>
+      <country>USA  </country>
+      <type>Action Fiction </type>
+      <price>$10.90</price>
+    <year>1985</year>
+    
+  </Movie>
+ <Movie>
+      <title>Titanic</title>
+      <description>Titanic was a British passanger liner that sank </description>
+      <country>USA  </country>
+      <type>Drama Romance </type>
+      <price>$15.90</price>
+    <year>1997</year>
+    
+  </Movie>
+   <Movie>
+      <title>Harry Potter</title>
+      <description>The sorcerers's Stone </description>
+      <country> Canada </country>
+      <type>Adventure Fantasy </type>
+      <price>$12.99</price>
+    <year>2001</year>
+    
+  </Movie>
+   <Movie>
+      <title>The dark Night</title>
+      <description>Joker emerous from his mystrous Past </description>
+      <country> USA </country>
+      <type>Crime Drama </type>
+      <price>$13.99</price>
+    <year>2001</year>
+    
+  </Movie>
+  <Movie>
+      <title>The Godfather</title>
+      <description>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</description>
+      <country> USA </country>
+      <type>Crime Drama </type>
+      <price>$13.22</price>
+    <year>1972</year>
+    
+  </Movie>
+   <Movie>
+      <title>The Shawshank Redemption</title>
+      <description>Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.</description>
+      <country> USA </country>
+      <type>Drama </type>
+      <price>$11.20</price>
+    <year>1994</year>
+    
+  </Movie>
+   <Movie>
+      <title>Schindler's List</title>
+      <description>In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazi Germans.</description>
+      <country> USA </country>
+      <type>Biography Drama History</type>
+      <price>$8.25</price>
+    <year>1993</year>
+    
+  </Movie>
+   <Movie>
+      <title>Fight Club</title>
+      <description>An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.</description>
+      <country> USA Germany</country>
+      <type>Drama </type>
+      <price>$13.75</price>
+    <year>1999</year>
+    
+  </Movie>
+   <Movie>
+      <title>Forrest Gump</title>
+      <description>The presidencies of Kennedy and Johnson, Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.</description>
+      <country> USA </country>
+      <type>Romance Drama </type>
+      <price>$10.00</price>
+    <year>1994</year>
+    
+  </Movie>
+   <Movie>
+      <title>The Matrix</title>
+      <description>A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.</description>
+      <country> USA </country>
+      <type>Action Sci-Fi</type>
+      <price>$21.15</price>
+    <year>1999</year>
+    
+  </Movie>
+
+
+
+
+  </Movies>
